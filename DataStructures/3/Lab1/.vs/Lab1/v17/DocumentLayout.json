@@ -1,0 +1,57 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\Artem\\Desktop\\Programming\\Data Structures\\AlgorithmsRep\\cppAlgorithms\\DataStructures\\3\\Lab1\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{8D418675-0EDD-4413-9FA7-677194235F3F}|Lab1.vcxproj|C:\\Users\\Artem\\Desktop\\Programming\\Data Structures\\AlgorithmsRep\\cppAlgorithms\\DataStructures\\3\\Lab1\\Lab1.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{8D418675-0EDD-4413-9FA7-677194235F3F}|Lab1.vcxproj|solutionrelative:Lab1.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8D418675-0EDD-4413-9FA7-677194235F3F}|Lab1.vcxproj|C:\\Users\\Artem\\Desktop\\Programming\\Data Structures\\AlgorithmsRep\\cppAlgorithms\\DataStructures\\3\\Lab1\\data.txt||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{8D418675-0EDD-4413-9FA7-677194235F3F}|Lab1.vcxproj|solutionrelative:data.txt||{8B382828-6202-11D1-8870-0000F87579D2}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 327,
+          "SelectedChildIndex": 2,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "data.txt",
+              "DocumentMoniker": "C:\\Users\\Artem\\Desktop\\Programming\\Data Structures\\AlgorithmsRep\\cppAlgorithms\\DataStructures\\3\\Lab1\\data.txt",
+              "RelativeDocumentMoniker": "data.txt",
+              "ToolTip": "C:\\Users\\Artem\\Desktop\\Programming\\Data Structures\\AlgorithmsRep\\cppAlgorithms\\DataStructures\\3\\Lab1\\data.txt",
+              "RelativeToolTip": "data.txt",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAqAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003109|",
+              "WhenOpened": "2025-02-24T13:14:56.835Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Lab1.cpp",
+              "DocumentMoniker": "C:\\Users\\Artem\\Desktop\\Programming\\Data Structures\\AlgorithmsRep\\cppAlgorithms\\DataStructures\\3\\Lab1\\Lab1.cpp",
+              "RelativeDocumentMoniker": "Lab1.cpp",
+              "ToolTip": "C:\\Users\\Artem\\Desktop\\Programming\\Data Structures\\AlgorithmsRep\\cppAlgorithms\\DataStructures\\3\\Lab1\\Lab1.cpp",
+              "RelativeToolTip": "Lab1.cpp",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAUAAAAnAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2025-02-19T13:02:03.005Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
