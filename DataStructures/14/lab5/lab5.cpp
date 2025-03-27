@@ -184,8 +184,8 @@ long long stringToLongLong(const char* str) {
 
 int main() {
     setlocale(LC_ALL, "Russian");
-    SetConsoleCP(1251);  // Устанавливает кодировку ввода
-    SetConsoleOutputCP(1251); // Устанавливает кодировку вывода
+    SetConsoleCP(1251);
+    SetConsoleOutputCP(1251);
     HashTable table;
     char input[12];
     long long number;
@@ -193,41 +193,42 @@ int main() {
     char filename[100];
 
     do {
-        cout << "\nМеню:" << endl;
-        cout << "1. Загрузить из файла" << endl;
-        cout << "2. Добавить запись" << endl;
-        cout << "3. Найти запись" << endl;
-        cout << "4. Удалить запись" << endl;
-        cout << "5. Вывести хеш-таблицу" << endl;
-        cout << "0. Выход" << endl;
+        cout << "\n======================================\n";
+        cout << "                 МЕНЮ                    " << endl;
+        cout << "======================================" << endl;
+        cout << " 1. Загрузить из файла" << endl;
+        cout << " 2. Добавить запись" << endl;
+        cout << " 3. Найти запись" << endl;
+        cout << " 4. Удалить запись" << endl;
+        cout << " 5. Вывести хеш-таблицу" << endl;
+        cout << " 0. Выход" << endl;
+        cout << "--------------------------------------" << endl;
         cout << "Введите ваш выбор: ";
 
         cin >> input;
         if (!isValidNumber(input)) {
-            cout << "Ошибка! Введите корректное число: " << endl;
-            exit(1);
+            cout << "Ошибка! Введите корректное число!" << endl;
             continue;
         }
         int choice = stringToLongLong(input);
 
         switch (choice) {
         case 1:
-            cout << "Введите имя файла: ";
+            cout << "\nВведите имя файла: ";
             cin >> filename;
             table.loadFromFile(filename);
             break;
         case 2:
-            cout << "Введите номер телефона: ";
+            cout << "\nВведите номер телефона: ";
             cin >> input;
             if (!isValidNumber(input)) {
-                cout << "Ошибка! Введите корректный номер: " << endl;
-                exit(1);
+                cout << "Ошибка! Введите корректный номер!" << endl;
+                continue;
             }
-            
             number = stringToLongLong(input);
             if (number < 10000000000LL || number > 99999999999LL) {
                 cout << "Ошибка! Номер должен быть в диапазоне от 10000000000 до 99999999999." << endl;
-                exit(1);
+                continue;
             }
             cout << "Введите имя и фамилию: ";
             cin.ignore();
@@ -235,39 +236,40 @@ int main() {
             table.insert(number, name);
             break;
         case 3:
-            cout << "Введите номер телефона для поиска: ";
+            cout << "\nВведите номер телефона для поиска: ";
             cin >> number;
             if (!isValidNumber(input)) {
-                cout << "Ошибка! Введите корректный номер: " << endl;
-                exit(1);
+                cout << "Ошибка! Введите корректный номер!" << endl;
+                continue;
             }
             if (number < 10000000000LL || number > 99999999999LL) {
                 cout << "Ошибка! Номер должен быть в диапазоне от 10000000000 до 99999999999." << endl;
-                exit(1);
+                continue;
             }
             table.search(number);
             break;
         case 4:
-            cout << "Введите номер телефона для удаления: ";
+            cout << "\nВведите номер телефона для удаления: ";
             cin >> number;
             if (!isValidNumber(input)) {
-                cout << "Ошибка! Введите корректный номер: " << endl;
-                exit(1);
+                cout << "Ошибка! Введите корректный номер!" << endl;
+                continue;
             }
             if (number < 10000000000LL || number > 99999999999LL) {
                 cout << "Ошибка! Номер должен быть в диапазоне от 10000000000 до 99999999999." << endl;
-                exit(1);
+                continue;
             }
             table.remove(number);
             break;
         case 5:
+            cout << "\nТекущая хеш-таблица:" << endl;
             table.print();
             break;
         case 0:
-            cout << "Выход..." << endl;
+            cout << "\nВыход..." << endl;
             return 0;
         default:
-            cout << "Неверный выбор. Попробуйте снова." << endl;
+            cout << "\nНеверный выбор. Попробуйте снова." << endl;
         }
     } while (true);
 }
