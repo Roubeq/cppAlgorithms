@@ -4,164 +4,218 @@
 
 using namespace std;
 
-const int INITIAL_SIZE = 10;                            // Начальный размер хеш-таблицы
-const int MAX_CHAIN_LENGTH = 3;                         // Максимальная средняя длина цепочки перед рехешированием
+const int INITIAL_SIZE = 10;                             // Начальный размер хеш-таблицы
+const int MAX_CHAIN_LENGTH = 3;                          // Максимальная длина цепочки до рехеширования
+
+// Функция для сравнения строк
+bool stringsEqual(const char* a, const char* b) {
+    int i = 0;
+    while (a[i] != '\0' && b[i] != '\0') {               // Проходим по символам строк
+        if (a[i] != b[i]) return false;                  // Если символы разные, строки разные
+        i++;
+    }
+    return a[i] == b[i];                                 // Проверяем, что строки одинаковой длины
+}
+
+// Функция для копирования строки с ограничением по длине
+void stringCopy(char* dest, const char* src, int maxLen) {
+    int i = 0;
+    while (src[i] != '\0' && i < maxLen - 1) {           // Копируем до конца строки или до лимита длины
+        dest[i] = src[i];
+        i++;
+    }
+    dest[i] = '\0';                                      // Завершаем строку
+}
+
+// Хеш-функция для строки
+int hashU(char* v, int M) {
+    int h = 0, a = 31415, b = 27183;                     // Начальные значения для хеширования
+    for (h = 0 ;*v != 0; v++, a = a * b % (M - 1)) {          // Проходим по всем символам строки
+        h = (a * h + *v) % M;                            // Обновляем хеш на основе символа
+    }
+    return (h < 0) ? (h + M) : h;                        // Возвращаем положительный хеш
+}
 
 struct Node {
-    long long key;                                      // Номер телефона
-    char name[70];                                      // Имя контакта
-    Node* next;                                         // Указатель на следующий элемент в цепочке
+    char key[20];                                        // Ключ (строка) для элемента
+    Node* next;                                          // Указатель на следующий элемент в цепочке
 
-    Node(long long k, const char* n) : key(k), next(nullptr) {
-        int i = 0;
-        while (n[i] != '\0' && i < 69) {
-            name[i] = n[i];
-            i++;
-        }
-        name[i] = '\0';                                 // Гарантируем завершение строки
+    Node(const char* k) : next(nullptr) {                // Конструктор для инициализации нового узла
+        stringCopy(key, k, 20);                          // Копируем ключ в узел
     }
 };
 
 class HashTable {
 private:
-    Node** table;                                       // Массив указателей на списки (цепочки)
-    int size;                                           // Текущий размер таблицы
-    int count;                                          // Количество элементов в таблице
+    Node** table;                                        // Массив указателей на цепочки
+    int size;                                            // Размер таблицы
+    int count;                                           // Количество элементов в таблице
 
-    int hashFunction(long long key) {
-        return key % size;                              // Простая хеш-функция на основе остатка от деления
+    // Хеш-функция, использующая hashU
+    int hashFunction(const char* key) {
+        return hashU((char*)key, size);                    // Используем hashU для вычисления индекса
     }
 
-    int nextPrime(int n) {                              // Поиск следующего простого числа
+    // Функция для нахождения следующего простого числа для нового размера таблицы
+    int nextPrime(int n) {
         while (true) {
             bool isPrime = true;
-            for (int i = 2; i * i <= n; i++) {
+            for (int i = 2; i * i <= n; i++) {             // Проверка на простоту
                 if (n % i == 0) {
                     isPrime = false;
                     break;
                 }
             }
-            if (isPrime) return n;
+            if (isPrime) return n;                         // Если простое — возвращаем
             n++;
         }
     }
 
-    double calculateAverageChainLength() {              // Вычисляет среднюю длину цепочек
-        return (double)count / size;
+    // Функция для вычисления средней длины цепочек в таблице
+    double calculateAverageChainLength() {
+        return (double)count / size;                       // Среднее количество элементов на одну ячейку
     }
 
-    void rehash() {                                     // Пересоздание таблицы при превышении длины цепочек
-        int newSize = nextPrime(size * 2);
+    // Функция для рехеширования таблицы
+    void rehash() {
+        int newSize = nextPrime(size * 2);                 // Новый размер таблицы
         cout << "Рехеширование: новый размер таблицы " << newSize << endl;
-        Node** newTable = new Node * [newSize]();
+        Node** newTable = new Node * [newSize]();          // Новый массив для таблицы
 
+        // Перенос всех элементов в новую таблицу
         for (int i = 0; i < size; i++) {
             Node* current = table[i];
             while (current) {
-                int newIndex = current->key % newSize;
-                cout << "Перемещение записи: " << current->key << " - " << current->name << " в новую ячейку " << newIndex << endl;
+                int newIndex = hashU(current->key, newSize);   // Используем новую хеш-функцию
+                cout << "Перемещение записи: " << current->key << " в новую ячейку " << newIndex << endl;
                 Node* nextNode = current->next;
-                current->next = newTable[newIndex];     // Перенос в новую таблицу
+                current->next = newTable[newIndex];            // Перемещаем элемент в новую таблицу
                 newTable[newIndex] = current;
                 current = nextNode;
             }
         }
 
-        delete[] table;                                 // Освобождение памяти старой таблицы
-        table = newTable;
-        size = newSize;
+        delete[] table;                                        // Освобождаем память старой таблицы
+        table = newTable;                                      // Перенаправляем на новую таблицу
+        size = newSize;                                        // Обновляем размер таблицы
     }
 
 public:
     HashTable(int initialSize = INITIAL_SIZE) : size(initialSize), count(0) {
-        table = new Node * [size]();                    // Инициализация массива указателей
+        table = new Node * [size]();                           // Инициализация массива указателей на цепочки
     }
 
-    ~HashTable() {                                      // Деструктор для очистки памяти
+    // Деструктор для освобождения памяти
+    ~HashTable() {
         for (int i = 0; i < size; i++) {
             Node* current = table[i];
             while (current) {
                 Node* temp = current;
                 current = current->next;
-                delete temp;
+                delete temp;                               // Удаляем каждый элемент в цепочке
             }
         }
-        delete[] table;
+        delete[] table;                                    // Освобождаем память таблицы
     }
 
-    void insert(long long key, const char* name) {
-        if (calculateAverageChainLength() > MAX_CHAIN_LENGTH) {
-            rehash();                                   // Увеличение таблицы при достижении лимита средней длины цепочек
+    // Функция для проверки, является ли строка числом
+    bool isNumber(const char* str) {
+        if (str == nullptr || str[0] == '\0') return false;     // Пустая строка не является числом
+
+        for (int i = 0; str[i] != '\0'; ++i) {
+            if (!isdigit(str[i])) {                             // Если хотя бы один символ не цифра, возвращаем false
+                return false;
+            }
         }
-        int index = hashFunction(key);
-        Node* newNode = new Node(key, name);
-        newNode->next = table[index];                   // Добавление в начало списка
+        return true;
+    }
+
+    void insert(const char* key) {
+        if (!isNumber(key)) {                                    // Проверка, что строка представляет собой число
+            cout << "Ошибка: строка не является числом!" << endl;
+            return;                                              // Прерываем выполнение, если строка не является числом
+        }
+
+        if (calculateAverageChainLength() > MAX_CHAIN_LENGTH) {  // Если цепочки слишком длинные, рехешируем
+            rehash();
+        }
+        int index = hashFunction(key);                           // Находим индекс для ключа
+        Node* newNode = new Node(key);                           // Создаём новый узел
+        newNode->next = table[index];                            // Добавляем его в начало цепочки
         table[index] = newNode;
-        count++;
-        cout << "Запись: " << key << " - " << name << " добавлена в ячейку " << index << endl;
+        count++;                                                 // Увеличиваем счётчик элементов
+        cout << "Добавлено: " << key << " в ячейку " << index << endl;
     }
 
-    Node* search(long long key) {
-        int index = hashFunction(key);
-        Node* current = table[index];
+
+    // Функция поиска по ключу
+    Node* search(const char* key) {
+        int index = hashFunction(key);                          // Находим индекс для ключа
+        Node* current = table[index];                           // Получаем первый элемент цепочки
+        int chainIndex = 0;                                     // Индекс элемента в цепочке
+
         while (current) {
-            if (current->key == key) {
-                return current;                         // Найденный узел возвращается
+            if (stringsEqual(current->key, key)) {              // Если нашли элемент
+                cout << "Номер найден в строке таблицы: " << index << ", в цепочке на позиции: " << chainIndex << endl;
+                return current;                                 // Возвращаем найденный узел
             }
-            current = current->next;
+            current = current->next;                            // Иначе продолжаем искать в цепочке
+            chainIndex++;                                       // Увеличиваем индекс элемента в цепочке
         }
-        return nullptr;                                 // Если не найдено
+
+        cout << "Запись не найдена." << endl;                   // Если не нашли, выводим сообщение
+        return nullptr;                                         // Возвращаем nullptr, если запись не найдена
     }
 
-    void remove(long long key) {
-        int index = hashFunction(key);
+    // Функция для удаления элемента по ключу
+    void remove(const char* key) {
+        int index = hashFunction(key);                          // Находим индекс для ключа
         Node* current = table[index];
         Node* prev = nullptr;
         while (current) {
-            if (current->key == key) {
+            if (stringsEqual(current->key, key)) {              // Если нашли, удаляем элемент
                 if (prev) {
-                    prev->next = current->next;         // Удаление узла из списка
+                    prev->next = current->next;                 // Пропускаем текущий элемент
                 }
                 else {
-                    table[index] = current->next;       // Обновление головы списка
+                    table[index] = current->next;               // Если элемент первый, обновляем голову цепочки
                 }
-                delete current;
-                count--;
-                cout << "Запись с номером " << key << " удалена из ячейки " << index << endl;
+                delete current;                                 // Удаляем узел
+                count--;                                        // Уменьшаем счётчик элементов
+                cout << "Удалено: " << key << " из ячейки " << index << endl;
                 return;
             }
             prev = current;
-            current = current->next;
+            current = current->next;                            // Иначе продолжаем искать
         }
     }
 
-    void print() {                                      // Вывод всей таблицы с цепочками
+    // Функция для вывода содержимого всей таблицы
+    void print() {
         for (int i = 0; i < size; i++) {
-            cout << i << ": ";
+            cout << i << ": ";                                  // Выводим индекс ячейки
             Node* current = table[i];
             while (current) {
-                cout << "[" << current->key << " - " << current->name << "] -> ";
+                cout << "[" << current->key << "] -> ";         // Выводим элементы цепочки
                 current = current->next;
             }
-            cout << "NULL" << endl;
+            cout << "NULL" << endl;                             // Завершаем цепочку
         }
-        cout << "Средняя длина цепочек: " << calculateAverageChainLength() << endl;
+        cout << "Средняя длина цепочек: " << calculateAverageChainLength() << endl; // Выводим среднюю длину цепочек
     }
 
-    void loadFromFile(const char* filename) {           // Чтение данных из файла
-        ifstream file(filename);
+    // Функция для загрузки данных из файла
+    void loadFromFile(const char* filename) {
+        ifstream file(filename);                                // Открываем файл
         if (!file) {
-            cout << "Ошибка открытия файла!" << endl;
+            cout << "Ошибка открытия файла!" << endl;           // Ошибка при открытии
             return;
         }
-        long long key;
-        char name[70];
-        while (file >> key) {
-            file.ignore();
-            file.getline(name, 70);
-            insert(key, name);
+        char key[20];
+        while (file.getline(key, 20)) {                         // Читаем строки из файла
+            insert(key);                                        // Добавляем в таблицу
         }
-        file.close();
+        file.close();                                           // Закрываем файл
     }
 };
 
@@ -172,8 +226,7 @@ int main() {
 
     HashTable phoneBook;
     int choice;
-    long long key;
-    char name[70];
+    char key[20];
     char filename[100];
 
     do {
@@ -186,35 +239,32 @@ int main() {
         cout << "0. Выход\n";
         cout << "Выберите действие: ";
         cin >> choice;
+        cin.ignore();
 
         switch (choice) {
         case 1:
             cout << "Введите имя файла: ";
-            cin >> filename;
+            cin.getline(filename, 100);
             phoneBook.loadFromFile(filename);
-            cout << "Данные загружены." << endl;
             break;
         case 2:
-            cout << "Введите номер телефона: ";
-            cin >> key;
-            cin.ignore();
-            cout << "Введите имя: ";
-            cin.getline(name, 70);
-            phoneBook.insert(key, name);
+            cout << "Введите ключ (номер): ";
+            cin.getline(key, 20);
+            phoneBook.insert(key);
             break;
         case 3:
-            cout << "Введите номер телефона для поиска: ";
-            cin >> key;
+            cout << "Введите ключ для поиска: ";
+            cin.getline(key, 20);
             if (Node* found = phoneBook.search(key)) {
-                cout << "Найдено: " << found->name << endl;
+                cout << "Найдено: " << found->key << endl;
             }
             else {
-                cout << "Запись не найдена." << endl;
+                cout << "Не найдено." << endl;
             }
             break;
         case 4:
-            cout << "Введите номер телефона для удаления: ";
-            cin >> key;
+            cout << "Введите ключ для удаления: ";
+            cin.getline(key, 20);
             phoneBook.remove(key);
             break;
         case 5:
@@ -224,7 +274,7 @@ int main() {
             cout << "Выход..." << endl;
             break;
         default:
-            cout << "Некорректный ввод. Попробуйте снова." << endl;
+            cout << "Неверный ввод." << endl;
         }
     } while (choice != 0);
 

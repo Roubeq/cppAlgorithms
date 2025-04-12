@@ -49,7 +49,8 @@
               "RelativeToolTip": "phones.txt",
               "ViewState": "AQIAAA0AAAAAAAAAAAAAACQAAAAcAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003109|",
-              "WhenOpened": "2025-03-23T12:16:58.26Z"
+              "WhenOpened": "2025-03-23T12:16:58.26Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -59,7 +60,7 @@
               "RelativeDocumentMoniker": "Lab5.cpp",
               "ToolTip": "C:\\Users\\Artem\\Desktop\\Programming\\Data Structures\\AlgorithmsRep\\cppAlgorithms\\DataStructures\\13\\Lab5\\Lab5.cpp",
               "RelativeToolTip": "Lab5.cpp",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABgAAAAFAAAA",
+              "ViewState": "AQIAAAcAAAAAAAAAAAAAABkAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2025-03-23T09:24:11.416Z",
               "EditorCaption": ""
