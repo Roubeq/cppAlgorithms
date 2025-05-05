@@ -1,8 +1,9 @@
 ﻿#include <iostream>
 #include <fstream>
+
 using namespace std;
 
-// Получение количества цифр в числе
+
 int getLength(int x) {
     if (x == 0) return 1;               // Если число равно 0, длина = 1
     int len = 0;
@@ -15,53 +16,48 @@ int getLength(int x) {
 
 // Получение цифры по позиции (0 - старший разряд)
 int getDigit(int x, int pos, int maxLen) {
-    int len = getLength(x);             // Получаем длину числа
+    int len = getLength(x);
     for (int i = 0; i < maxLen - pos - 1; i++) {
-        x /= 10;                        // Сдвигаем число влево
+        x /= 10;
     }
-    return x % 10;                      // Возвращаем цифру на позиции pos
+    return x % 10;
 }
 
 // Лексикографическое сравнение двух чисел
 bool lexLess(int a, int b) {
-    // Массивы для хранения цифр
     int digitsA[10], digitsB[10];
     int lenA = 0, lenB = 0;
 
-    // Разбиваем a на цифры
-    if (a == 0) digitsA[lenA++] = 0;    // Если a == 0, сразу записываем цифру 0
-    while (a > 0) {                     // Разбиваем число на цифры
+    if (a == 0) digitsA[lenA++] = 0;
+    while (a > 0) {
         digitsA[lenA++] = a % 10;
         a /= 10;
     }
-    // Разворачиваем цифры
+
     for (int i = 0; i < lenA / 2; i++) {
         swap(digitsA[i], digitsA[lenA - i - 1]);
     }
 
-    // Разбиваем b на цифры
-    if (b == 0) digitsB[lenB++] = 0;    // Если b == 0, сразу записываем цифру 0
-    while (b > 0) {                     // Разбиваем число на цифры
+    if (b == 0) digitsB[lenB++] = 0;
+    while (b > 0) {
         digitsB[lenB++] = b % 10;
         b /= 10;
     }
-    // Разворачиваем цифры
     for (int i = 0; i < lenB / 2; i++) {
         swap(digitsB[i], digitsB[lenB - i - 1]);
     }
 
-    // Сравниваем цифры
-    int minLen = min(lenA, lenB);                   // Берем минимальную длину чисел
+    int minLen = min(lenA, lenB);
     for (int i = 0; i < minLen; i++) {
-        if (digitsA[i] < digitsB[i]) return true;   // Если цифра из a меньше, возвращаем true
-        if (digitsA[i] > digitsB[i]) return false;  // Если цифра из a больше, возвращаем false
+        if (digitsA[i] < digitsB[i]) return true;
+        if (digitsA[i] > digitsB[i]) return false;
     }
 
     return lenA < lenB;
 }
 
 // Лексикографическая быстрая сортировка
-void lexQuickSort(int* arr, int low, int high) {
+/*void lexQuickSort(int* arr, int low, int high) {
     if (low < high) {
         int pivot = arr[high];            // Опорный элемент
         int i = (low - 1);
@@ -78,26 +74,55 @@ void lexQuickSort(int* arr, int low, int high) {
         lexQuickSort(arr, low, pi - 1);   // Рекурсивная сортировка левой части
         lexQuickSort(arr, pi + 1, high);  // Рекурсивная сортировка правой части
     }
-}
+}*/
 
-// Быстрая сортировка (QuickSort)
-void quickSort(int* arr, int low, int high) {
-    if (low < high) {
-        int pivot = arr[high];          // Опорный элемент
-        int i = (low - 1);
+/*void lexQuickSort(int* arr, int low, int high) {
+    if (low >= high) return;  // Базовый случай рекурсии
 
-        for (int j = low; j < high; j++) {
-            if (arr[j] <= pivot) {      // Если текущий элемент меньше или равен опорному
-                i++;
-                swap(arr[i], arr[j]);
-            }
+    int i = low, j = high;
+    int pivot = arr[(low + high) / 2];  // Выбираем средний элемент как опорный
+
+    while (i <= j) {
+        // Ищем элемент слева, который должен быть справа от pivot (лексикографически)
+        while (lexLess(arr[i], pivot)) i++;
+
+        // Ищем элемент справа, который должен быть слева от pivot (лексикографически)
+        while (lexLess(pivot, arr[j])) j--;
+
+        // Если индексы не пересеклись, меняем элементы местами
+        if (i <= j) {
+            swap(arr[i], arr[j]);
+            i++;
+            j--;
         }
-        swap(arr[i + 1], arr[high]);    // Перемещаем опорный элемент в нужное место
-        int pi = i + 1;
-
-        quickSort(arr, low, pi - 1);    // Рекурсивная сортировка левой части
-        quickSort(arr, pi + 1, high);   // Рекурсивная сортировка правой части
     }
+
+    // Рекурсивно сортируем две части
+    if (low < j) lexQuickSort(arr, low, j);
+    if (i < high) lexQuickSort(arr, i, high);
+} */
+
+void quickSort(int* arr, int low, int high) {
+    if (low >= high) return;
+
+    int i = low, j = high;
+    int pivot = arr[(low + high) / 2];
+
+    while (i <= j) {
+
+        while (arr[i] < pivot) i++;
+
+        while (arr[j] > pivot) j--;
+
+        if (i <= j) {
+            swap(arr[i], arr[j]);
+            i++;
+            j--;
+        }
+    }
+
+    if (low < j) quickSort(arr, low, j);
+    if (i < high) quickSort(arr, i, high);
 }
 
 // Функция для считывания камней из файла

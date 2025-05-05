@@ -127,7 +127,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="SecondLab.cpp" />
+    <ClCompile Include="SSSMatrix.cpp" />
+    <ClCompile Include="tests.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="SSSMatrix.txt" />

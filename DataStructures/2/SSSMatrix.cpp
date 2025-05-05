@@ -51,20 +51,20 @@ public:
                     cout << "Матрица некорректно введена, проверьте и исправьте данные в файле.";
                     exit(1);
                 }
-                    if (i == j) {
-                        AD[i] = value;                              // Заполняем диагональ
+                if (i == j) {
+                    AD[i] = value;                              // Заполняем диагональ
+                }
+                if (value != 0) {
+                    if (i < j) {                                // Над диагональю
+                        auTemp[auIndex] = value;
+                        ljTemp[auIndex] = j;
+                        auIndex++;
                     }
-                    if (value != 0) {
-                        if (i < j) {                                // Над диагональю
-                            auTemp[auIndex] = value;
-                            ljTemp[auIndex] = j;
-                            auIndex++;
-                        }
-                        else if (i > j) {                           // Под диагональю
-                            alTemp[alIndex] = value;
-                            alIndex++;
-                        }
+                    else if (i > j) {                           // Под диагональю
+                        alTemp[alIndex] = value;
+                        alIndex++;
                     }
+                }
             }
             LI[i + 1] = auIndex;                // Запоминаем границу строки
         }
