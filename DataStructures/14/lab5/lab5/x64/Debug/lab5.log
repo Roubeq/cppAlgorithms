@@ -1,0 +1,3 @@
+﻿  lab5.cpp
+C:\Users\Artem\Desktop\Programming\Data Structures\AlgorithmsRep\cppAlgorithms\DataStructures\14\lab5\lab5.cpp(213,20): warning C4244: инициализация: преобразование "__int64" в "int", возможна потеря данных
+  lab5.vcxproj -> C:\Users\Artem\Desktop\Programming\Data Structures\AlgorithmsRep\cppAlgorithms\DataStructures\14\lab5\x64\Debug\lab5.exe
