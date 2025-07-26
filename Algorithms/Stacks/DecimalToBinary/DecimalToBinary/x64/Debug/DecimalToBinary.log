@@ -1,0 +1,3 @@
+﻿  DecimalToBinary.cpp
+C:\Users\Artem\Desktop\Programming\Algorithms\cppAlgorithms\Algorithms\Stacks\DecimalToBinary\DecimalToBinary.cpp(56,9): warning C4101: value: неиспользованная локальная переменная
+  DecimalToBinary.vcxproj -> C:\Users\Artem\Desktop\Programming\Algorithms\cppAlgorithms\Algorithms\Stacks\DecimalToBinary\x64\Debug\DecimalToBinary.exe
