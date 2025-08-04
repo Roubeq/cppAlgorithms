@@ -1,0 +1,4 @@
+﻿  BinaryHeap.cpp
+C:\Users\Artem\Desktop\Programming\Algorithms\cppAlgorithms\Algorithms\Heaps\BinaryHeap\BinaryHeap.cpp(30,12): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\Artem\Desktop\Programming\Algorithms\cppAlgorithms\Algorithms\Heaps\BinaryHeap\BinaryHeap.cpp(56,22): warning C4267: аргумент: преобразование из "size_t" в "int"; возможна потеря данных
+  BinaryHeap.vcxproj -> C:\Users\Artem\Desktop\Programming\Algorithms\cppAlgorithms\Algorithms\Heaps\BinaryHeap\x64\Debug\BinaryHeap.exe
