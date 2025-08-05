@@ -1,0 +1,6 @@
+﻿  HeapSort.cpp
+C:\Users\Artem\Desktop\Programming\Algorithms\cppAlgorithms\Algorithms\Sorting\HeapSort\HeapSort.cpp(16,12): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\Artem\Desktop\Programming\Algorithms\cppAlgorithms\Algorithms\Sorting\HeapSort\HeapSort.cpp(54,22): warning C4267: аргумент: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\Artem\Desktop\Programming\Algorithms\cppAlgorithms\Algorithms\Sorting\HeapSort\HeapSort.cpp(58,12): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\Artem\Desktop\Programming\Algorithms\cppAlgorithms\Algorithms\Sorting\HeapSort\HeapSort.cpp(84,14): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+  HeapSort.vcxproj -> C:\Users\Artem\Desktop\Programming\Algorithms\cppAlgorithms\Algorithms\Sorting\HeapSort\x64\Debug\HeapSort.exe
