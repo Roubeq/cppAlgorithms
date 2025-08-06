@@ -1,0 +1,3 @@
+﻿  QuickSort.cpp
+C:\Users\Artem\Desktop\Programming\Algorithms\cppAlgorithms\Algorithms\Sorting\QuickSort\QuickSort.cpp(50,39): warning C4267: аргумент: преобразование из "size_t" в "int"; возможна потеря данных
+  QuickSort.vcxproj -> C:\Users\Artem\Desktop\Programming\Algorithms\cppAlgorithms\Algorithms\Sorting\QuickSort\x64\Debug\QuickSort.exe
