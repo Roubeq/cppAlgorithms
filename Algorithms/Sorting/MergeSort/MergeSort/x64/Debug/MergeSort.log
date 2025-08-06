@@ -1,0 +1,5 @@
+﻿  MergeSort.cpp
+C:\Users\Artem\Desktop\Programming\Algorithms\cppAlgorithms\Algorithms\Sorting\MergeSort\MergeSort.cpp(7,15): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\Artem\Desktop\Programming\Algorithms\cppAlgorithms\Algorithms\Sorting\MergeSort\MergeSort.cpp(8,16): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\Artem\Desktop\Programming\Algorithms\cppAlgorithms\Algorithms\Sorting\MergeSort\MergeSort.cpp(36,11): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+  MergeSort.vcxproj -> C:\Users\Artem\Desktop\Programming\Algorithms\cppAlgorithms\Algorithms\Sorting\MergeSort\x64\Debug\MergeSort.exe
