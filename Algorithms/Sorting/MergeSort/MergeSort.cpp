@@ -3,6 +3,64 @@
 
 using namespace std;
 
+struct Node {
+	int val;
+	Node* next;
+};
+
+Node* findMiddle(Node* head) {
+	if (head == nullptr) return;
+
+	Node* slow = head;
+	Node* fast = head->next;
+
+	while (fast->next != nullptr && fast != nullptr) {
+		slow = slow->next;
+		fast = fast->next->next;
+	}
+
+	return slow;
+}
+
+
+Node* merge(Node* left, Node* right) {
+	Node* dummy = new Node();
+	Node* temp = dummy;
+	
+	while (left != nullptr && right != nullptr) {
+		if (left->val <= right->val) {
+			temp->next = left;
+			left = left->next;
+		}
+		else {
+			temp->next = right;
+			right = right->next;
+		}
+	}
+
+	if (left != nullptr) {
+		temp->next = left;
+	}
+	else {
+		temp->next = right;
+	}
+
+	return dummy->next;
+
+}
+
+Node* mergeLL(Node* head) {
+	Node* middle = findMiddle(head);
+	Node* left = head;
+	Node* right = middle->next;
+	middle->next = nullptr;
+
+	left = mergeLL(left);
+	right = mergeLL(right);
+
+	merge(left, right);
+}
+
 void mergeArrays(vector<int>& left, vector<int>& right, vector<int>& result) {
 	int sizeLeft = left.size();
 	int sizeRight = right.size();
