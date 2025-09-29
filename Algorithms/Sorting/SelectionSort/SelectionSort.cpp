@@ -3,6 +3,28 @@
 
 using namespace std;
 
+struct Node {
+	int val;
+	Node* next;
+};
+
+void selectionSort(Node* head) {
+	Node* current = head;
+	while (current != nullptr) {
+		Node* minNode = current;
+		Node* temp = current->next;
+		while (temp != nullptr) {
+			if (minNode->val < temp->val) {
+				minNode = head;
+			}
+			temp = temp->next;
+		}
+
+		swap(current->val, temp->val);
+		current = head->next;
+	}
+}
+
 void selectionSort(vector<int>& arr) {
 	int n = arr.size();
 	for (int i = 0; i < n - 1; i++) {
